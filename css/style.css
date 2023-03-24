@@ -1,7 +1,23 @@
+.debug{
+    border: 1px solid red;
+}
+
 header{
     height: 60px;
 }
 nav{
     background-color: aqua;
     color: white;
+}
+.card i{
+    font-size: 3rem;
+}
+.orange{
+    color: orange;
+}
+.green{
+    color: green;
+}
+.blue{
+    color: blue;
 }
