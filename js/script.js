@@ -124,13 +124,45 @@ const icons = [
     }
 ];
 
-for (let i = 0; i < icons.length; i++) {
-    const rowHtml = document.querySelector('.row');
-    const card = icons[i];
-    rowHtml.innerHTML += `  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pt-4 d-flex justify-content-center">
-                                <div class="card w-75 d-flex flex-column justify-content-center align-items-center p-4">
-                                    <i class="${card.prefix}${card.family} ${card.prefix}${card.name} ${card.color}"></i>
-                                    <span class="text-uppercase fw-bold fs-4">${card.name}</span>
-                                </div>
-                            </div>` ;
-};
+function drawCard(icon) {
+    const template = `  <div class="col-12 col-sm-6 col-md-4 col-lg-3 pt-4 d-flex justify-content-center">
+                            <div class="card w-75 d-flex flex-column justify-content-center align-items-center p-4">
+                                <i class="${icon.prefix}${icon.family} ${icon.prefix}${icon.name} ${icon.color}"></i>
+                                <span class="text-uppercase fw-bold fs-4">${icon.name}</span>
+                            </div>
+                        </div>`;
+    return template;
+}
+
+function drawPage(filteredArray) {
+    const container = document.querySelector('.row');
+    let html = '';
+    filteredArray.forEach((icon) => {
+        const tpl = drawCard(icon);
+        html += tpl;
+    });
+    container.innerHTML = html;
+}
+
+function filterIcons() {
+    // icons
+    console.log(this.value)
+    let filteredArray = icons.filter((icon) => {
+        if(icon.type === this.value || this.value === 'type-all') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    );
+    drawPage(filteredArray);
+}
+
+function init() {
+    const select = document.getElementById('type-filter');
+    select.addEventListener('change', filterIcons);
+    drawPage(icons);
+}
+
+init();
